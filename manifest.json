@@ -1,0 +1,64 @@
+{
+   "background": {
+      "service_worker": "background.js"
+   },
+   "content_scripts": [ {
+      "js": [ "content-scripts/cloudflareDetect.js" ],
+      "matches": [ "https://www.upwork.com/nx/find-work/*", "https://www.upwork.com/nx/search/jobs*" ],
+      "run_at": "document_idle"
+   }, {
+      "js": [ "content-scripts/fetchInterceptor.js" ],
+      "matches": [ "https://www.upwork.com/*" ],
+      "run_at": "document_start",
+      "world": "MAIN"
+   }, {
+      "js": [ "content-scripts/fetchRelay.js" ],
+      "matches": [ "https://www.upwork.com/*" ],
+      "run_at": "document_start"
+   }, {
+      "js": [ "content-scripts/messageAlert.js" ],
+      "matches": [ "https://www.upwork.com/*" ],
+      "run_at": "document_idle"
+   }, {
+      "js": [ "content-scripts/jobList.js" ],
+      "matches": [ "https://www.upwork.com/ab/jobs/search/*", "https://www.upwork.com/nx/find-work/*", "https://www.upwork.com/nx/search/jobs*" ]
+   }, {
+      "js": [ "content-scripts/jobPage.js" ],
+      "matches": [ "https://www.upwork.com/freelance-jobs/*", "https://www.upwork.com/jobs/*" ]
+   }, {
+      "js": [ "content-scripts/profilePage.js" ],
+      "matches": [ "https://www.upwork.com/freelancers/*" ]
+   }, {
+      "js": [ "content-scripts/proposalPage.js" ],
+      "matches": [ "https://www.upwork.com/ab/proposals/job/*/apply*", "https://www.upwork.com/jobs/*/apply*", "https://www.upwork.com/nx/proposals/job/*/apply*" ]
+   }, {
+      "js": [ "content-scripts/proposalsHistory.js" ],
+      "matches": [ "https://www.upwork.com/nx/proposals/*" ]
+   } ],
+   "declarative_net_request": {
+      "rule_resources": [ {
+         "enabled": true,
+         "id": "request_modifier",
+         "path": "request_modifier.json"
+      } ]
+   },
+   "default_locale": "en",
+   "description": "__MSG_shortDesc__",
+   "host_permissions": [ "https://*.upwork.com/*", "https://upflow-api.railway.app/*" ],
+   "icons": {
+      "128": "icon/128_128.png",
+      "16": "icon/16_16.png",
+      "48": "icon/48_48.png",
+      "64": "icon/64_64.png",
+      "96": "icon/96_96.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvVukDCejIBzF/6eLFdr1o/CwpjV+MGgSSPbcZePXxmyVp+v1eu7skKPDRIM8cCrnhdktY8vrU/t2qUvHx3VeBQssowVoZwSRur9Dv03gnzyUxiq0t7F/bL0Mhgk2sT7QWWTduuOB6xJTdFsM8Ofn5fOIDY6+18PIHr3t49AeDgilsqNsDZp9dv+uUlGFK4x4PvvyDt5YkM7O3S6YCT4bJhsF1+d/5GJLtItUVTqesoQ99BjSCQHTJTZr4jy13fwHpkNP5sguiaUQm+FLgG8TyGKPaI5KANcx4CYlQwNtTQiRsOKX9HOhKk51vji0JEsanzDpF4v0p0OhxqZsTGLTKQIDAQAB",
+   "manifest_version": 3,
+   "name": "__MSG_appName__",
+   "permissions": [ "storage", "alarms", "notifications", "tabs", "sidePanel", "scripting", "cookies", "declarativeNetRequest", "offscreen" ],
+   "side_panel": {
+      "default_path": "sidepanel.html"
+   },
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.0.3"
+}
